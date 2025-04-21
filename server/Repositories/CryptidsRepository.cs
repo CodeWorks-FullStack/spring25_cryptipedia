@@ -17,7 +17,8 @@ public class CryptidsRepository
     cryptids.*,
     accounts.*
     FROM cryptids
-    JOIN accounts ON accounts.id = cryptids.discoverer_id;";
+    JOIN accounts ON accounts.id = cryptids.discoverer_id
+    ORDER BY cryptids.id ASC;";
 
     List<Cryptid> cryptids = _db.Query(sql, (Cryptid cryptid, Profile account) =>
     {
