@@ -1,8 +1,11 @@
 <script setup>
+import { AppState } from '@/AppState.js';
 import { cryptidsService } from '@/services/CryptidsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
+
+const cryptids = computed(() => AppState.cryptids)
 
 onMounted(() => {
   getCryptids()
@@ -20,7 +23,7 @@ async function getCryptids() {
 </script>
 
 <template>
-  <div>sup</div>
+  <div>{{ cryptids }}</div>
 </template>
 
 <style scoped lang="scss"></style>
