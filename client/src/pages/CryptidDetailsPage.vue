@@ -84,7 +84,7 @@ async function getCryptidById() {
 }
 
 .cryptid-img:hover {
-  cursor: crosshair;
+  cursor: help;
   filter: blur(0);
 }
 </style>

@@ -27,7 +27,7 @@ async function getCryptids() {
   <div class="container-fluid hero">
     <div class="row hero-row">
       <div class="col-md-8 align-self-center">
-        <div class="text-light text-shadow ps-5">
+        <div class="text-light text-shadow ps-5 ibm-plex-mono-font">
           <h2>Terrestrials</h2>
           <p>
             A terrestrial cryptid is a creature that exists on land but has not been “scientifically” proven. These
