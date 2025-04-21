@@ -17,7 +17,7 @@ public class CryptidsRepository
     cryptids.*,
     accounts.*
     FROM cryptids
-    JOIN accounts ON accounts.id = cryptids.discoverer_id
+    INNER JOIN accounts ON accounts.id = cryptids.discoverer_id
     ORDER BY cryptids.id ASC;";
 
     List<Cryptid> cryptids = _db.Query(sql, (Cryptid cryptid, Profile account) =>
@@ -35,7 +35,7 @@ public class CryptidsRepository
     cryptids.*,
     accounts.*
     FROM cryptids
-    JOIN accounts ON accounts.id = cryptids.discoverer_id
+    INNER JOIN accounts ON accounts.id = cryptids.discoverer_id
     WHERE cryptids.id = @cryptidId;";
 
     Cryptid foundCryptid = _db.Query(sql, (Cryptid cryptid, Profile account) =>
