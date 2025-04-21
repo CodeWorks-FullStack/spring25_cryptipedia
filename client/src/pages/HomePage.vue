@@ -27,7 +27,7 @@ async function getCryptids() {
   <div class="container-fluid hero">
     <div class="row hero-row">
       <div class="col-md-8 align-self-center">
-        <div class="text-light ps-5">
+        <div class="text-light text-shadow ps-5">
           <h2>Terrestrials</h2>
           <p>
             A terrestrial cryptid is a creature that exists on land but has not been “scientifically” proven. These
@@ -55,7 +55,7 @@ async function getCryptids() {
       </div>
     </div>
     <div class="row">
-      <div v-for="cryptid in cryptids" :key="cryptid.id" class="col-md-3">
+      <div v-for="cryptid in cryptids" :key="cryptid.id" class="col-6 col-md-4 col-lg-3 px-0">
         <CryptidCard :cryptid="cryptid" />
       </div>
     </div>
