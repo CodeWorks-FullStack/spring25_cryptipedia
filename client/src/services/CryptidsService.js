@@ -10,6 +10,10 @@ class CryptidsService {
     const cryptids = response.data.map(pojo => new Cryptid(pojo))
     AppState.cryptids = cryptids
   }
+  async getCryptidById(cryptidId) {
+    const response = await api.get(`api/cryptids/${cryptidId}`)
+    logger.log('GOT CRYPTID', response.data)
+  }
 }
 
 // SINGLETON
