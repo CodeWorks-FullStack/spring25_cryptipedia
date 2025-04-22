@@ -12,16 +12,24 @@ public class CryptidsRepository
 
   internal List<Cryptid> GetCryptids()
   {
+    // string sql = @"
+    // SELECT
+    // cryptids.*,
+    // COUNT(cryptid_encounters.id) AS encounter_count,
+    // accounts.*
+    // FROM cryptids
+    // LEFT OUTER JOIN cryptid_encounters ON cryptid_encounters.cryptid_id = cryptids.id
+    // INNER JOIN accounts ON accounts.id = cryptids.discoverer_id
+    // GROUP BY cryptids.id
+    // ORDER BY cryptids.id ASC;";
+
     string sql = @"
     SELECT
-    cryptids.*,
-    COUNT(cryptid_encounters.id) AS encounter_count,
+    cryptids_with_encounter_count_view.*,
     accounts.*
-    FROM cryptids
-    LEFT OUTER JOIN cryptid_encounters ON cryptid_encounters.cryptid_id = cryptids.id
-    INNER JOIN accounts ON accounts.id = cryptids.discoverer_id
-    GROUP BY cryptids.id
-    ORDER BY cryptids.id ASC;";
+    FROM cryptids_with_encounter_count_view
+    INNER JOIN accounts ON accounts.id = cryptids_with_encounter_count_view.discoverer_id
+    ORDER BY cryptids_with_encounter_count_view.id ASC;";
 
     List<Cryptid> cryptids = _db.Query(sql, (Cryptid cryptid, Profile account) =>
     {

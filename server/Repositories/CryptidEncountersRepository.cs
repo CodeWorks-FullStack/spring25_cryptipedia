@@ -86,14 +86,24 @@ public class CryptidEncountersRepository
     //   return cryptid;
     // }, new { accountId }).ToList();
 
+    // string sql = @"
+    // SELECT 
+    // cryptids.*,
+    // cryptid_encounters.id AS cryptid_encounter_id,
+    // accounts.*
+    // FROM cryptid_encounters 
+    // INNER JOIN cryptids ON cryptids.id = cryptid_encounters.cryptid_id
+    // INNER JOIN accounts ON accounts.id = cryptids.discoverer_id
+    // WHERE account_id = @accountId;";
+
     string sql = @"
     SELECT 
-    cryptids.*,
+    cryptids_with_encounter_count_view.*,
     cryptid_encounters.id AS cryptid_encounter_id,
     accounts.*
     FROM cryptid_encounters 
-    INNER JOIN cryptids ON cryptids.id = cryptid_encounters.cryptid_id
-    INNER JOIN accounts ON accounts.id = cryptids.discoverer_id
+    INNER JOIN cryptids_with_encounter_count_view ON cryptids_with_encounter_count_view.id = cryptid_encounters.cryptid_id
+    INNER JOIN accounts ON accounts.id = cryptids_with_encounter_count_view.discoverer_id
     WHERE account_id = @accountId;";
 
     List<CryptidEncounterCryptid> cryptids = _db.Query(sql,
