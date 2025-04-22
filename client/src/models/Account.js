@@ -1,6 +1,8 @@
-export class Profile {
+import { DatabaseItem } from "./DatabaseItem.js"
+
+export class Profile extends DatabaseItem {
   constructor(data) {
-    this.id = data.id
+    super(data)
     this.name = data.name
     this.picture = data.picture
   }

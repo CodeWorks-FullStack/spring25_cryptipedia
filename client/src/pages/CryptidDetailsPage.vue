@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import { cryptidEncountersService } from '@/services/CryptidEncountersService.js';
 import { cryptidsService } from '@/services/CryptidsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
@@ -12,6 +13,7 @@ const route = useRoute()
 
 onMounted(() => {
   getCryptidById()
+  getCryptidEncounterProfilesByCryptidId()
 })
 
 async function getCryptidById() {
@@ -20,6 +22,15 @@ async function getCryptidById() {
   } catch (error) {
     Pop.error(error, 'COULD NOT GET CRYPTID')
     logger.error('COULD NOT GET CRYPTID', error)
+  }
+}
+
+async function getCryptidEncounterProfilesByCryptidId() {
+  try {
+    await cryptidEncountersService.getCryptidEncounterProfilesByCryptidId(route.params.cryptidId)
+  } catch (error) {
+    Pop.error(error, 'COULD NOT GET CRYPTID ENCOUNTERS')
+    logger.error('COULD NOT GET CRYPTID ENCOUNTERS', error)
   }
 }
 </script>
@@ -35,7 +46,7 @@ async function getCryptidById() {
           <p class="ibm-plex-mono-font">{{ cryptid.description }}</p>
           <div>
             <span class="fs-2">Size</span>
-            <div :title="`Size is ${cryptid.size}/10`">
+            <div :title="`Size is ${cryptid.size}/10`" class="stats">
               <span v-for="num in cryptid.size" :key="num + ' size'" class="fs-2 mdi mdi-circle"></span>
               <span v-for="num in 10 - cryptid.size" :key="num + ' undersize'"
                 class="fs-2 mdi mdi-circle-outline"></span>
@@ -43,11 +54,14 @@ async function getCryptidById() {
           </div>
           <div>
             <span class="fs-2">Threat Level</span>
-            <div :title="`Threat level is ${cryptid.threatLevel}/10`">
+            <div :title="`Threat level is ${cryptid.threatLevel}/10`" class="stats">
               <span v-for="num in cryptid.threatLevel" :key="num + ' threatLevel'" class="fs-2 mdi mdi-circle"></span>
               <span v-for="num in 10 - cryptid.threatLevel" :key="num + ' underthreatLevel'"
                 class="fs-2 mdi mdi-circle-outline"></span>
             </div>
+          </div>
+          <div>
+            <h2 class="text-warning mt-2">Encountered By {{ cryptid.encounterCount }} Humans</h2>
           </div>
         </div>
       </div>
@@ -86,5 +100,9 @@ async function getCryptidById() {
 .cryptid-img:hover {
   cursor: help;
   filter: blur(0);
+}
+
+.stats {
+  width: fit-content;
 }
 </style>
