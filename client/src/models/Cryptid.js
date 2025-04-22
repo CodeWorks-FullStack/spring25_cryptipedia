@@ -12,5 +12,6 @@ export class Cryptid extends DatabaseItem {
     this.description = data.description
     this.discovererId = data.discovererId
     this.discoverer = new Profile(data.discoverer)
+    this.encounterCount = data.encounterCount
   }
 }
