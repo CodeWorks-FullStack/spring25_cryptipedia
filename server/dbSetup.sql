@@ -36,6 +36,13 @@ SELECT * FROM cryptids;
 
 DROP TABLE cryptids;
 
+SELECT
+cryptid_encounters.*,
+accounts.* 
+FROM cryptid_encounters 
+INNER JOIN accounts ON accounts.id = cryptid_encounters.account_id
+WHERE cryptid_encounters.id = 2;
+
 INSERT INTO
   cryptids (
     name,
