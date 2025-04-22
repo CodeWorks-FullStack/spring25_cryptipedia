@@ -53,16 +53,15 @@ INNER JOIN cryptids ON cryptids.id = cryptid_encounters.cryptid_id
 INNER JOIN accounts ON accounts.id = cryptids.discoverer_id
 WHERE account_id = '65f87bc1e02f1ee243874743';
 
+-- NOTE creates alias column that counts how many times a cryptid has been encountered
 SELECT
 cryptids.*,
-COUNT(cryptid_encounters.id) AS encounter_count,
-accounts.*
+COUNT(cryptid_encounters.id) AS encounter_count
 FROM cryptids
 LEFT OUTER JOIN cryptid_encounters ON cryptid_encounters.cryptid_id = cryptids.id
-INNER JOIN accounts ON accounts.id = cryptids.discoverer_id
 GROUP BY cryptids.id;
 
-
+-- NOTE creates a custom table that will always have the encounter_count alias column present
 CREATE VIEW cryptids_with_encounter_count_view AS
 SELECT 
 cryptids.*,
@@ -71,10 +70,11 @@ FROM cryptids
 LEFT OUTER JOIN cryptid_encounters ON cryptid_encounters.cryptid_id = cryptids.id
 GROUP BY cryptids.id;
 
+-- NOTE you can select from views as if they were normal tables
 SELECT * 
 FROM cryptids_with_encounter_count_view
-INNER JOIN accounts ON accounts.id = cryptids_with_encounter_count_view.discoverer_id
- WHERE cryptids_with_encounter_count_view.id = 1;
+INNER JOIN accounts ON accounts.id = cryptids_with_encounter_count_view.discoverer_id 
+WHERE cryptids_with_encounter_count_view.id = 1;
 
 
 SELECT * FROM cryptid_encounters;

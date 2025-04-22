@@ -15,6 +15,8 @@ public class CryptidEncountersRepository
 
   internal CryptidEncounterProfile CreateCryptidEncounter(CryptidEncounter cryptidEncounterData)
   {
+    // REVIEW all of this commented out code will run just fine
+
     // string sql = @"
     // INSERT INTO
     // cryptid_encounters(account_id, cryptid_id)
@@ -34,6 +36,7 @@ public class CryptidEncountersRepository
     //   return account;
     // }, cryptidEncounterData).SingleOrDefault();
 
+    // NOTE how to create alias column with select
     string sql = @"
     INSERT INTO
     cryptid_encounters(account_id, cryptid_id)
@@ -68,6 +71,8 @@ public class CryptidEncountersRepository
 
   internal List<CryptidEncounterCryptid> GetCryptidEncountersByAccountId(string accountId)
   {
+    // REVIEW all of this commented out code will run just fine
+
     // string sql = @"
     // SELECT 
     // cryptid_encounters.*,

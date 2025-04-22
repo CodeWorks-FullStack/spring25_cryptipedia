@@ -12,6 +12,8 @@ public class CryptidsRepository
 
   internal List<Cryptid> GetCryptids()
   {
+    // REVIEW all of this commented out code will run just fine
+
     // string sql = @"
     // SELECT
     // cryptids.*,
@@ -23,6 +25,7 @@ public class CryptidsRepository
     // GROUP BY cryptids.id
     // ORDER BY cryptids.id ASC;";
 
+    // NOTE selecting from view 
     string sql = @"
     SELECT
     cryptids_with_encounter_count_view.*,
