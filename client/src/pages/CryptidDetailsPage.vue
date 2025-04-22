@@ -9,6 +9,7 @@ import { useRoute } from 'vue-router';
 
 const cryptid = computed(() => AppState.activeCryptid)
 const humans = computed(() => AppState.cryptidEncounterProfiles)
+const account = computed(() => AppState.account)
 
 const route = useRoute()
 
@@ -32,6 +33,18 @@ async function getCryptidEncounterProfilesByCryptidId() {
   } catch (error) {
     Pop.error(error, 'COULD NOT GET CRYPTID ENCOUNTERS')
     logger.error('COULD NOT GET CRYPTID ENCOUNTERS', error)
+  }
+}
+
+async function createCryptidEncounter() {
+  try {
+    const cryptidEncounterData = {
+      cryptidId: route.params.cryptidId
+    }
+    await cryptidEncountersService.createCryptidEncounter(cryptidEncounterData)
+  } catch (error) {
+    Pop.error(error, 'COULD NOT CREATE CRYPTID ENCOUNTER')
+    logger.error('COULD NOT CREATE CRYPTID ENCOUNTER', error)
   }
 }
 </script>
@@ -62,7 +75,12 @@ async function getCryptidEncounterProfilesByCryptidId() {
             </div>
           </div>
           <div>
-            <h2 class="text-warning mt-2">Encountered By {{ humans.length }} Humans</h2>
+            <div class="d-flex flex-wrap gap-3 mb-3">
+              <h2 class="text-warning mt-2">Encountered By {{ humans.length }} Humans</h2>
+              <button @click="createCryptidEncounter()" v-if="account" class="btn btn-warning ibm-plex-mono-font">
+                I've encountered the {{ cryptid.name }}
+              </button>
+            </div>
             <div class="d-flex gap-1 flex-wrap">
               <div v-for="human in humans" :key="human.cryptidEncounterId">
                 <img :src="human.picture" :alt="human.name" :title="`${human.name} has encountered the ${cryptid.name}`"

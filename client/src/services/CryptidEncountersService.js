@@ -20,6 +20,13 @@ class CryptidEncountersService {
     const cryptids = response.data.map(pojo => new CryptidEncounterCryptid(pojo))
     AppState.cryptidEncounterCryptids = cryptids
   }
+
+  async createCryptidEncounter(cryptidEncounterData) {
+    const response = await api.post('api/cryptidEncounters', cryptidEncounterData)
+    logger.log('ENCOUNTERED CRYPTID', response.data)
+    const profile = new CryptidEncounterProfile(response.data)
+    AppState.cryptidEncounterProfiles.push(profile)
+  }
 }
 
 export const cryptidEncountersService = new CryptidEncountersService()
