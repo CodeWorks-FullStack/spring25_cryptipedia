@@ -31,9 +31,17 @@ class CryptidEncountersService {
   async deleteCryptidEncounter(cryptidEncounterId) {
     const response = await api.delete(`api/cryptidEncounters/${cryptidEncounterId}`)
     logger.log('DELETED!', response.data)
-    const cryptids = AppState.cryptidEncounterCryptids
-    const index = cryptids.findIndex(cryptid => cryptid.cryptidEncounterId == cryptidEncounterId)
-    cryptids.splice(index, 1)
+    const cryptidEncounters = AppState.cryptidEncounterCryptids
+    const index = cryptidEncounters.findIndex(cryptid => cryptid.cryptidEncounterId == cryptidEncounterId)
+
+    const cryptidEncounter = cryptidEncounters[index]
+
+    cryptidEncounters.forEach(cryptid => {
+      if (cryptid.id != cryptidEncounter.id) return
+      cryptid.encounterCount--
+    });
+
+    cryptidEncounters.splice(index, 1)
   }
 
 }
