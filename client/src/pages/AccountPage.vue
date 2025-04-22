@@ -5,8 +5,10 @@ import FancyHeader from '@/components/FancyHeader.vue';
 import { Pop } from '@/utils/Pop.js';
 import { logger } from '@/utils/Logger.js';
 import { cryptidEncountersService } from '@/services/CryptidEncountersService.js';
+import CryptidCard from '@/components/CryptidCard.vue';
 
 const account = computed(() => AppState.account)
+const cryptids = computed(() => AppState.cryptidEncounterCryptids)
 
 onMounted(() => {
   getMyCryptidEncounters()
@@ -30,6 +32,11 @@ async function getMyCryptidEncounters() {
         <FancyHeader>
           Cryptids Encountered
         </FancyHeader>
+      </div>
+    </div>
+    <div class="row">
+      <div v-for="cryptid in cryptids" :key="cryptid.cryptidEncounterId" class="col-6 col-md-4 col-lg-3">
+        <CryptidCard :cryptid="cryptid" />
       </div>
     </div>
   </div>
