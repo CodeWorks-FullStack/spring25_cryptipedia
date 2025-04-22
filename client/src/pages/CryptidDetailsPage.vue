@@ -62,7 +62,7 @@ async function getCryptidEncounterProfilesByCryptidId() {
             </div>
           </div>
           <div>
-            <h2 class="text-warning mt-2">Encountered By {{ cryptid.encounterCount }} Humans</h2>
+            <h2 class="text-warning mt-2">Encountered By {{ humans.length }} Humans</h2>
             <div class="d-flex gap-1 flex-wrap">
               <div v-for="human in humans" :key="human.cryptidEncounterId">
                 <img :src="human.picture" :alt="human.name" :title="`${human.name} has encountered the ${cryptid.name}`"
