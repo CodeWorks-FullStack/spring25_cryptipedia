@@ -1,9 +1,25 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState.js';
 import FancyHeader from '@/components/FancyHeader.vue';
+import { Pop } from '@/utils/Pop.js';
+import { logger } from '@/utils/Logger.js';
+import { cryptidEncountersService } from '@/services/CryptidEncountersService.js';
 
 const account = computed(() => AppState.account)
+
+onMounted(() => {
+  getMyCryptidEncounters()
+})
+
+async function getMyCryptidEncounters() {
+  try {
+    await cryptidEncountersService.getMyCryptidEncounters()
+  } catch (error) {
+    Pop.error(error, 'COULD NOT GET CRYPTID ENCOUNTERS')
+    logger.error('COULD NOT GET CRYPTID ENCOUNTERS', error)
+  }
+}
 
 </script>
 
