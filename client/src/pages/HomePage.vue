@@ -1,6 +1,7 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import CryptidCard from '@/components/CryptidCard.vue';
+import FancyHeader from '@/components/FancyHeader.vue';
 import { cryptidsService } from '@/services/CryptidsService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
@@ -46,12 +47,9 @@ async function getCryptids() {
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <div class="italiana-font my-4 position-relative">
-          <div>
-            <span class="text-warning bg-text">CRYPTIDS</span>
-          </div>
-          <h1 class="position-absolute">CRYPTIDS</h1>
-        </div>
+        <FancyHeader>
+          Cryptids
+        </FancyHeader>
       </div>
     </div>
     <div class="row">
@@ -77,15 +75,5 @@ async function getCryptids() {
 
 .emerald-entity {
   filter: hue-rotate(45deg);
-}
-
-.bg-text {
-  font-size: 6rem;
-  user-select: none;
-}
-
-h1 {
-  top: 3.25rem;
-  left: .4rem;
 }
 </style>
