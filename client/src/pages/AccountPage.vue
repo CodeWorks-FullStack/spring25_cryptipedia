@@ -23,6 +23,19 @@ async function getMyCryptidEncounters() {
   }
 }
 
+async function deleteCryptidEncounter(cryptidEncounterId) {
+  const confirmed = await Pop.confirm('Are you sure?')
+
+  if (!confirmed) return
+
+  try {
+    await cryptidEncountersService.deleteCryptidEncounter(cryptidEncounterId)
+  } catch (error) {
+    Pop.error(error, 'COULD NOT DELETE')
+    logger.error('COULD NOT DELETE', error)
+  }
+}
+
 </script>
 
 <template>
@@ -35,8 +48,14 @@ async function getMyCryptidEncounters() {
       </div>
     </div>
     <div class="row">
-      <div v-for="cryptid in cryptids" :key="cryptid.cryptidEncounterId" class="col-6 col-md-4 col-lg-3">
-        <CryptidCard :cryptid="cryptid" />
+      <div v-for="cryptid in cryptids" :key="cryptid.cryptidEncounterId" class="col-6 col-md-4 col-lg-3 px-0">
+        <div class="position-relative">
+          <CryptidCard :cryptid="cryptid" />
+          <button @click="deleteCryptidEncounter(cryptid.cryptidEncounterId)"
+            class="btn btn-outline-danger ibm-plex-mono-font position-absolute m-1">
+            Un-encounter
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -48,5 +67,9 @@ async function getMyCryptidEncounters() {
 <style scoped lang="scss">
 img {
   max-width: 100px;
+}
+
+button {
+  top: 0
 }
 </style>
