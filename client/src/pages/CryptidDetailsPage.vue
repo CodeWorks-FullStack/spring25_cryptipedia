@@ -8,6 +8,7 @@ import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 const cryptid = computed(() => AppState.activeCryptid)
+const humans = computed(() => AppState.cryptidEncounterProfiles)
 
 const route = useRoute()
 
@@ -62,6 +63,12 @@ async function getCryptidEncounterProfilesByCryptidId() {
           </div>
           <div>
             <h2 class="text-warning mt-2">Encountered By {{ cryptid.encounterCount }} Humans</h2>
+            <div class="d-flex gap-1 flex-wrap">
+              <div v-for="human in humans" :key="human.cryptidEncounterId">
+                <img :src="human.picture" :alt="human.name" :title="`${human.name} has encountered the ${cryptid.name}`"
+                  class="human-picture">
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -104,5 +111,12 @@ async function getCryptidEncounterProfilesByCryptidId() {
 
 .stats {
   width: fit-content;
+}
+
+.human-picture {
+  width: 5em;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  object-fit: cover;
 }
 </style>
