@@ -5,11 +5,13 @@ namespace cryptipedia.Controllers;
 public class CryptidsController : ControllerBase
 {
 
-  public CryptidsController(CryptidsService cryptidsService)
+  public CryptidsController(CryptidsService cryptidsService, CryptidEncountersService cryptidEncountersService)
   {
     _cryptidsService = cryptidsService;
+    _cryptidEncountersService = cryptidEncountersService;
   }
   private readonly CryptidsService _cryptidsService;
+  private readonly CryptidEncountersService _cryptidEncountersService;
 
   [HttpGet]
   public ActionResult<List<Cryptid>> GetAllCryptids()
@@ -32,6 +34,20 @@ public class CryptidsController : ControllerBase
     {
       Cryptid cryptid = _cryptidsService.GetCryptidById(cryptidId);
       return Ok(cryptid);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+  [HttpGet("{cryptidId}/cryptidEncounters")]
+  public ActionResult<List<CryptidEncounterProfile>> GetCryptidEncounterProfilesByCryptidId(int cryptidId)
+  {
+    try
+    {
+      List<CryptidEncounterProfile> cryptidEncounterProfiles = _cryptidEncountersService.GetCryptidEncounterProfilesByCryptidId(cryptidId);
+      return Ok(cryptidEncounterProfiles);
     }
     catch (Exception exception)
     {
