@@ -34,6 +34,8 @@ CREATE TABLE cryptid_encounters(
 
 SELECT * FROM cryptids;
 
+SELECT * FROM accounts;
+
 DROP TABLE cryptids;
 
 SELECT
@@ -41,6 +43,15 @@ accounts.*,
 cryptid_encounters.id AS cryptid_encounter_id
 FROM cryptid_encounters 
 INNER JOIN accounts ON accounts.id = cryptid_encounters.account_id;
+
+SELECT 
+cryptids.*,
+cryptid_encounters.id AS cryptid_encounter_id,
+accounts.*
+FROM cryptid_encounters 
+INNER JOIN cryptids ON cryptids.id = cryptid_encounters.cryptid_id
+INNER JOIN accounts ON accounts.id = cryptids.discoverer_id
+WHERE account_id = '65f87bc1e02f1ee243874743';
 
 INSERT INTO
   cryptids (

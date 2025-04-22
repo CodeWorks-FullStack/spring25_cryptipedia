@@ -28,4 +28,20 @@ public class CryptidEncountersController : ControllerBase
       return BadRequest(exception.Message);
     }
   }
+
+  [Authorize]
+  [HttpDelete("{cryptidEncounterId}")]
+  public async Task<ActionResult<string>> DeleteCryptidEncounter(int cryptidEncounterId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      _cryptidEncountersService.DeleteCryptidEncounter(cryptidEncounterId, userInfo);
+      return Ok("No longer encountering that cryptid!");
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
 }
