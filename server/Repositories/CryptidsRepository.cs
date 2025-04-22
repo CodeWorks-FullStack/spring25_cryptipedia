@@ -15,9 +15,12 @@ public class CryptidsRepository
     string sql = @"
     SELECT
     cryptids.*,
+    COUNT(cryptid_encounters.id) AS encounter_count,
     accounts.*
     FROM cryptids
+    LEFT OUTER JOIN cryptid_encounters ON cryptid_encounters.cryptid_id = cryptids.id
     INNER JOIN accounts ON accounts.id = cryptids.discoverer_id
+    GROUP BY cryptids.id
     ORDER BY cryptids.id ASC;";
 
     List<Cryptid> cryptids = _db.Query(sql, (Cryptid cryptid, Profile account) =>

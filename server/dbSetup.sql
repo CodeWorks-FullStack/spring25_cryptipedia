@@ -53,6 +53,17 @@ INNER JOIN cryptids ON cryptids.id = cryptid_encounters.cryptid_id
 INNER JOIN accounts ON accounts.id = cryptids.discoverer_id
 WHERE account_id = '65f87bc1e02f1ee243874743';
 
+SELECT
+cryptids.*,
+COUNT(cryptid_encounters.id) AS encounter_count,
+accounts.*
+FROM cryptids
+LEFT OUTER JOIN cryptid_encounters ON cryptid_encounters.cryptid_id = cryptids.id
+INNER JOIN accounts ON accounts.id = cryptids.discoverer_id
+GROUP BY cryptids.id;
+
+SELECT * FROM cryptid_encounters;
+
 INSERT INTO
   cryptids (
     name,
