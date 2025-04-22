@@ -23,6 +23,10 @@
   user-select: none;
 }
 
+.position-relative {
+  overflow-x: hidden;
+}
+
 h1 {
   top: 3.25rem;
   left: .4rem;
